@@ -1,10 +1,22 @@
 import { FaEdit } from 'react-icons/fa';
 import { AiFillDelete } from 'react-icons/ai';
+import EditTutorial from './EditTutorial';
+import { useState } from 'react';
 
 const TutorialList = ({tutorials, deleteTutorial, editTutorial}) => {
-console.log(tutorials);
+  const [editData, setEditData] = useState({id:"",title:"",desc:""});
 
+  // const sendData = (id,title,description) => {
+  //   setEditData({id:id,title:title,desc:description})
+  // }
+  const handleChange = (e) => {
+    setEditData(()=>({
+      ...editData, 
+      [e.target.id] : e.target.value
+    }))
+  }
   return (
+  
     <div className="container mt-4">
       <table className="table table-striped">
         <thead>
@@ -29,7 +41,7 @@ console.log(tutorials);
                   <FaEdit 
                   data-bs-toggle="modal"
                   data-bs-target="#edit-modal"
-                  size={20} className="me-3 text-warning" role='button'onClick={() => editTutorial(id,"fatih--","fatih--")}/>
+                  size={20} className="me-3 text-warning" role='button' onClick={() => setEditData({id:id,title:title,desc:description})}/>
                   <AiFillDelete size={22} className="text-danger cursor-pointer" onClick={() => deleteTutorial(id)}/>
                 </td>
               </tr>
@@ -37,6 +49,7 @@ console.log(tutorials);
           })}
         </tbody>
       </table>
+      <EditTutorial  editTutorial={editTutorial} editData={editData} handleChange={handleChange}/>
     </div>
   );
 };
