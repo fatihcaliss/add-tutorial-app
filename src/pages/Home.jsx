@@ -21,15 +21,15 @@ const Home = () => {
     getTurorials();
   }, [])
 
-  const addTutorial = async(tutorial) => {
+  const addTutorial = async (tutorial) => {
     try {
-      await axios.post(url, tutorial) 
+      await axios.post(url, tutorial)
     } catch (error) {
       console.log(error);
     }
     getTurorials();
   }
-  const deleteTutorial = async(id) =>{
+  const deleteTutorial = async (id) => {
     try {
       await axios.delete(`${url}/${id}`);
     } catch (error) {
@@ -38,13 +38,13 @@ const Home = () => {
     getTurorials();
   }
   //! Update(PUT:whole update, PATCH:partial update)
-  const editTutorial = async(id,title, desc) => {
-    const filtered = tutorials.filter((tutor)=> tutor.id === id).map(() =>({
-      title:title, description:desc
+  const editTutorial = async (id, title, desc) => {
+    const filtered = tutorials.filter((tutor) => tutor.id === id).map(() => ({
+      title: title, description: desc
     }))
     console.log(filtered)
     try {
-      await axios.put(`${url}/${id}`,filtered[0])
+      await axios.put(`${url}/${id}`, filtered[0])
     } catch (error) {
       console.log(error);
     }
@@ -53,11 +53,11 @@ const Home = () => {
 
   return (
     <>
-      <AddTutorial addTutorial={addTutorial}/>
+      <AddTutorial addTutorial={addTutorial} />
       <TutorialList tutorials={tutorials}
-       deleteTutorial ={deleteTutorial}
-       editTutorial={editTutorial}
-       />
+        deleteTutorial={deleteTutorial}
+        editTutorial={editTutorial}
+      />
     </>
   );
 };
